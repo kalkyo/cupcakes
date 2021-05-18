@@ -1,0 +1,12 @@
+{
+  "name": "peang/328/cupcakes",
+  "author": [
+    {
+      "name": "Peter Eang",
+      "email": "peang@greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
