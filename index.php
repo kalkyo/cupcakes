@@ -20,13 +20,22 @@ $f3 = Base :: instance();
 //define default route
 $f3->route('GET|POST /' , function($f3)
 {
+
+    //Reinitialize a session array
+    $_SESSION = array();
+
+    //Initialize variables to store user input
+    $userName = "";
     $userFlavors = array();
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+        $userName = $_POST['name'];
+        $userFlavors = $_POST['flavors'];
+
         //if name is valid store data
         if (validName($_POST['name'])) {
-            $_SESSION['name'] = $_POST['name'];
+            $_SESSION['name'] = $userName;
         }
         //set an error if not valid
         else {
@@ -35,10 +44,9 @@ $f3->route('GET|POST /' , function($f3)
 
         //if at least 1 flavor is selected
         if (validFlavor($_POST['flavors'])) {
-            $userFlavors = $_POST['flavors'];
+            $_SESSION['userFlavors'] = $userFlavors;
 
             //get user input here
-            $_SESSION['userFlavors'] = $userFlavors;
             $_SESSION['total'] = number_format((double)count($userFlavors) * 3.50, 2);
         }
         else {
@@ -53,7 +61,10 @@ $f3->route('GET|POST /' , function($f3)
 
     //get the data from the model
     $f3->set('flavors', getFlavors());
+
+
     $f3->set('userFlavors', $userFlavors);
+    $f3->set('userName', $userName);
 
     //display the home page
     $view = new Template();
