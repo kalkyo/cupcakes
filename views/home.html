@@ -16,10 +16,15 @@
     <form action="#" method="post" class="form-horizontal">
         <!-- get name -->
         <div class="form-group">
-            <label for="name">Name</label>
-            <input class="form-control" type="text" name="name" id="name" placeholder="Please input your name.">
+            <label for="name">Your name:</label>
+            <input class="form-control" type="text" name="name" id="name" value="{{ @name }}" placeholder="Please input your name.">
             <br>
         </div>
+
+        <!-- error message for invalid name -->
+        <check if="{{ isset(@errors['name']) }}">
+            <span class="err">{{ @errors['name'] }}</span>
+        </check>
 
         <!-- get cupcake flavors -->
         <div class="form-group">
@@ -31,6 +36,10 @@
                               value="{{ @flavors }}">{{ @flavors }}</label><br>
             </repeat>
         </div>
+
+        <check if="{{ isset(@errors['name']) }}">
+            <span class="err">{{ @errors['flavors'] }}</span>
+        </check>
 
         <input type="submit" class="form-control btn text-light rounded bg-success" id="btn_size" value="Order">
     </form>
