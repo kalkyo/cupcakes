@@ -31,7 +31,6 @@ $f3->route('GET|POST /' , function($f3)
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $userName = $_POST['name'];
-        $userFlavors = $_POST['flavors'];
 
         //if name is valid store data
         if (validName($_POST['name'])) {
@@ -42,16 +41,21 @@ $f3->route('GET|POST /' , function($f3)
             $f3->set('errors["name"]', 'Please enter a valid Name');
         }
 
-        //if at least 1 flavor is selected
-        if (validFlavor($_POST['flavors'])) {
+        //if at least 1 flavor is selected and flavors are valid
+        if (!empty($_POST['flavs']) && validFlavor($userFlavors))
+        {
+            //get user input
+            $userFlavors = $_POST['flavs'];
             $_SESSION['userFlavors'] = $userFlavors;
 
             //get user input here
             $_SESSION['total'] = number_format((double)count($userFlavors) * 3.50, 2);
+
         }
         else {
-            $f3->set('errors["flavors"]', 'Please select at least one flavor');
+            $f3->set('errors["flavs"]', 'Please select at least one flavor');
         }
+
 
         //If there are no errors redirect to summary route
         if (empty($f3->get('errors'))) {
@@ -62,7 +66,7 @@ $f3->route('GET|POST /' , function($f3)
     //get the data from the model
     $f3->set('flavors', getFlavors());
 
-
+    //store user input to hive
     $f3->set('userFlavors', $userFlavors);
     $f3->set('userName', $userName);
 
