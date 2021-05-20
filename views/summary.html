@@ -12,12 +12,13 @@
 </head>
 <body>
 <div class="container">
-    <h1>Cupcake Fundraiser</h1>
+    <h1>Cupcake Fundraiser!</h1>
     <p>Thank you, {{@SESSION.name}}, for your order!</p>
     <p>Order Summary:</p>
+    <!--<p>{{ @SESSION.flavs }}</p>-->
     <ul>
-        <repeat group="{{ @SESSION.userFlavors }}" value="{{ @SESSION.flavors }}">
-            <li>{{ @SESSION.flavors }}</li>
+        <repeat group="{{ @SESSION.userFlavors }}" value="{{ @flavs }}">
+            <li>{{ @flavs }}</li>
         </repeat>
     </ul>
     <p>Order Total: ${{ @SESSION.total }}</p>
