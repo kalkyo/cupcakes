@@ -12,7 +12,7 @@ function validName($name)
 }
 
 //returns true as long as 1 flavor is selected
-function validFlavor($flavors)
+function validFlavor($userFlavors)
 {
-    return !is_null($flavors);
+    return !is_null($userFlavors);
 }
